@@ -12,8 +12,8 @@ part 'tmdb_provider.g.dart';
 
 final _api = TMDB(
   ApiKeys(
-    '9731293a896050ac5060a26cce80076b',
-    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NzMxMjkzYTg5NjA1MGFjNTA2MGEyNmNjZTgwMDc2YiIsIm5iZiI6MTYzNTkxNzkxOS40MDgsInN1YiI6IjYxODIyMDVmYTA5N2RjMDA0MjhhOTdhNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.P0__D4awgf_TUY8yIoKuJC28gI3kXGxDC5DRR9_W_XI',
+    '',
+    '',
   ),
   logConfig: ConfigLogger.showAll(),
   dio: Dio()
