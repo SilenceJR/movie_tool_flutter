@@ -1,8 +1,10 @@
 import 'dart:io';
-
 import 'package:dio/io.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:movie_tool/util/log.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 import 'package:dio/dio.dart';
 
@@ -12,11 +14,17 @@ part 'tmdb_provider.g.dart';
 
 final _api = TMDB(
   ApiKeys(
-    '',
-    '',
+    '9731293a896050ac5060a26cce80076b',
+    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NzMxMjkzYTg5NjA1MGFjNTA2MGEyNmNjZTgwMDc2YiIsIm5iZiI6MTYzNTkxNzkxOS40MDgsInN1YiI6IjYxODIyMDVmYTA5N2RjMDA0MjhhOTdhNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.P0__D4awgf_TUY8yIoKuJC28gI3kXGxDC5DRR9_W_XI',
   ),
   logConfig: ConfigLogger.showAll(),
   dio: Dio()
+    ..interceptors.add(
+      TalkerDioLogger(
+        talker: Log.instance.talker,
+        settings: TalkerDioLoggerSettings(),
+      ),
+    )
     ..httpClientAdapter = IOHttpClientAdapter(
       createHttpClient: () {
         final client = HttpClient();
@@ -33,12 +41,9 @@ class PopularNotifier extends _$PopularNotifier {
   List<Movie> movies = [];
 
   @override
-  Future<List<Movie>> build(Ref ref) async {
-    await populars();
-    return movies;
-  }
+  Future<List<Movie>> build() async => movies;
 
-  Future<void> populars({
+  Future<void> getData({
     String language = 'zh-CN',
     int page = 1,
     String? region,
@@ -49,12 +54,18 @@ class PopularNotifier extends _$PopularNotifier {
       region: region,
     );
     final results = res['results'] as List;
+    final value = results.map((e) => Movie.fromJson(e)).toList();
+    // if (page == 1) {
+    //   movies = value;
+    // } else {
+    //   movies.addAll(value);
+    // }
+    // state = AsyncValue.data(movies);
     if (page == 1) {
-      movies = results.map((e) => Movie.fromJson(e)).toList();
+      state = AsyncValue.data(value);
     } else {
-      movies.addAll(results.map((e) => Movie.fromJson(e)).toList());
+      state = AsyncValue.data([...state.value ?? [], ...value]);
     }
-    state = AsyncData(movies);
   }
 }
 
@@ -82,7 +93,7 @@ abstract class Movie with _$Movie {
     required String title,
     @JsonKey(name: 'genre_ids') required List<int> genreIds,
     @JsonKey(name: 'poster_path') required String posterPath,
-    @JsonKey(name: 'backdrop_path') required String backdropPath,
+    @JsonKey(name: 'backdrop_path') required String? backdropPath,
     required String overview,
     @JsonKey(name: 'release_date') required String releaseDate,
     @JsonKey(name: 'vote_average') required double voteAverage,

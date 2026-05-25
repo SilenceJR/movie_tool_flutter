@@ -13,9 +13,9 @@ part of 'tmdb_provider.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$Movie {
+mixin _$Movie implements DiagnosticableTreeMixin {
 
- int get id; bool get adult;@JsonKey(name: 'original_title') String get originalTitle;@JsonKey(name: 'original_language') String get originalLanguage; String get title;@JsonKey(name: 'genre_ids') List<int> get genreIds;@JsonKey(name: 'poster_path') String get posterPath;@JsonKey(name: 'backdrop_path') String get backdropPath; String get overview;@JsonKey(name: 'release_date') String get releaseDate;@JsonKey(name: 'vote_average') double get voteAverage;@JsonKey(name: 'vote_count') int get voteCount;
+ int get id; bool get adult;@JsonKey(name: 'original_title') String get originalTitle;@JsonKey(name: 'original_language') String get originalLanguage; String get title;@JsonKey(name: 'genre_ids') List<int> get genreIds;@JsonKey(name: 'poster_path') String get posterPath;@JsonKey(name: 'backdrop_path') String? get backdropPath; String get overview;@JsonKey(name: 'release_date') String get releaseDate;@JsonKey(name: 'vote_average') double get voteAverage;@JsonKey(name: 'vote_count') int get voteCount;
 /// Create a copy of Movie
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,6 +25,12 @@ $MovieCopyWith<Movie> get copyWith => _$MovieCopyWithImpl<Movie>(this as Movie, 
   /// Serializes this Movie to a JSON map.
   Map<String, dynamic> toJson();
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'Movie'))
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('adult', adult))..add(DiagnosticsProperty('originalTitle', originalTitle))..add(DiagnosticsProperty('originalLanguage', originalLanguage))..add(DiagnosticsProperty('title', title))..add(DiagnosticsProperty('genreIds', genreIds))..add(DiagnosticsProperty('posterPath', posterPath))..add(DiagnosticsProperty('backdropPath', backdropPath))..add(DiagnosticsProperty('overview', overview))..add(DiagnosticsProperty('releaseDate', releaseDate))..add(DiagnosticsProperty('voteAverage', voteAverage))..add(DiagnosticsProperty('voteCount', voteCount));
+}
 
 @override
 bool operator ==(Object other) {
@@ -36,7 +42,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,id,adult,originalTitle,originalLanguage,title,const DeepCollectionEquality().hash(genreIds),posterPath,backdropPath,overview,releaseDate,voteAverage,voteCount);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'Movie(id: $id, adult: $adult, originalTitle: $originalTitle, originalLanguage: $originalLanguage, title: $title, genreIds: $genreIds, posterPath: $posterPath, backdropPath: $backdropPath, overview: $overview, releaseDate: $releaseDate, voteAverage: $voteAverage, voteCount: $voteCount)';
 }
 
@@ -48,7 +54,7 @@ abstract mixin class $MovieCopyWith<$Res>  {
   factory $MovieCopyWith(Movie value, $Res Function(Movie) _then) = _$MovieCopyWithImpl;
 @useResult
 $Res call({
- int id, bool adult,@JsonKey(name: 'original_title') String originalTitle,@JsonKey(name: 'original_language') String originalLanguage, String title,@JsonKey(name: 'genre_ids') List<int> genreIds,@JsonKey(name: 'poster_path') String posterPath,@JsonKey(name: 'backdrop_path') String backdropPath, String overview,@JsonKey(name: 'release_date') String releaseDate,@JsonKey(name: 'vote_average') double voteAverage,@JsonKey(name: 'vote_count') int voteCount
+ int id, bool adult,@JsonKey(name: 'original_title') String originalTitle,@JsonKey(name: 'original_language') String originalLanguage, String title,@JsonKey(name: 'genre_ids') List<int> genreIds,@JsonKey(name: 'poster_path') String posterPath,@JsonKey(name: 'backdrop_path') String? backdropPath, String overview,@JsonKey(name: 'release_date') String releaseDate,@JsonKey(name: 'vote_average') double voteAverage,@JsonKey(name: 'vote_count') int voteCount
 });
 
 
@@ -65,7 +71,7 @@ class _$MovieCopyWithImpl<$Res>
 
 /// Create a copy of Movie
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? adult = null,Object? originalTitle = null,Object? originalLanguage = null,Object? title = null,Object? genreIds = null,Object? posterPath = null,Object? backdropPath = null,Object? overview = null,Object? releaseDate = null,Object? voteAverage = null,Object? voteCount = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? adult = null,Object? originalTitle = null,Object? originalLanguage = null,Object? title = null,Object? genreIds = null,Object? posterPath = null,Object? backdropPath = freezed,Object? overview = null,Object? releaseDate = null,Object? voteAverage = null,Object? voteCount = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,adult: null == adult ? _self.adult : adult // ignore: cast_nullable_to_non_nullable
@@ -74,8 +80,8 @@ as String,originalLanguage: null == originalLanguage ? _self.originalLanguage : 
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,genreIds: null == genreIds ? _self.genreIds : genreIds // ignore: cast_nullable_to_non_nullable
 as List<int>,posterPath: null == posterPath ? _self.posterPath : posterPath // ignore: cast_nullable_to_non_nullable
-as String,backdropPath: null == backdropPath ? _self.backdropPath : backdropPath // ignore: cast_nullable_to_non_nullable
-as String,overview: null == overview ? _self.overview : overview // ignore: cast_nullable_to_non_nullable
+as String,backdropPath: freezed == backdropPath ? _self.backdropPath : backdropPath // ignore: cast_nullable_to_non_nullable
+as String?,overview: null == overview ? _self.overview : overview // ignore: cast_nullable_to_non_nullable
 as String,releaseDate: null == releaseDate ? _self.releaseDate : releaseDate // ignore: cast_nullable_to_non_nullable
 as String,voteAverage: null == voteAverage ? _self.voteAverage : voteAverage // ignore: cast_nullable_to_non_nullable
 as double,voteCount: null == voteCount ? _self.voteCount : voteCount // ignore: cast_nullable_to_non_nullable
@@ -164,7 +170,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  bool adult, @JsonKey(name: 'original_title')  String originalTitle, @JsonKey(name: 'original_language')  String originalLanguage,  String title, @JsonKey(name: 'genre_ids')  List<int> genreIds, @JsonKey(name: 'poster_path')  String posterPath, @JsonKey(name: 'backdrop_path')  String backdropPath,  String overview, @JsonKey(name: 'release_date')  String releaseDate, @JsonKey(name: 'vote_average')  double voteAverage, @JsonKey(name: 'vote_count')  int voteCount)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  bool adult, @JsonKey(name: 'original_title')  String originalTitle, @JsonKey(name: 'original_language')  String originalLanguage,  String title, @JsonKey(name: 'genre_ids')  List<int> genreIds, @JsonKey(name: 'poster_path')  String posterPath, @JsonKey(name: 'backdrop_path')  String? backdropPath,  String overview, @JsonKey(name: 'release_date')  String releaseDate, @JsonKey(name: 'vote_average')  double voteAverage, @JsonKey(name: 'vote_count')  int voteCount)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Movie() when $default != null:
 return $default(_that.id,_that.adult,_that.originalTitle,_that.originalLanguage,_that.title,_that.genreIds,_that.posterPath,_that.backdropPath,_that.overview,_that.releaseDate,_that.voteAverage,_that.voteCount);case _:
@@ -185,7 +191,7 @@ return $default(_that.id,_that.adult,_that.originalTitle,_that.originalLanguage,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  bool adult, @JsonKey(name: 'original_title')  String originalTitle, @JsonKey(name: 'original_language')  String originalLanguage,  String title, @JsonKey(name: 'genre_ids')  List<int> genreIds, @JsonKey(name: 'poster_path')  String posterPath, @JsonKey(name: 'backdrop_path')  String backdropPath,  String overview, @JsonKey(name: 'release_date')  String releaseDate, @JsonKey(name: 'vote_average')  double voteAverage, @JsonKey(name: 'vote_count')  int voteCount)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  bool adult, @JsonKey(name: 'original_title')  String originalTitle, @JsonKey(name: 'original_language')  String originalLanguage,  String title, @JsonKey(name: 'genre_ids')  List<int> genreIds, @JsonKey(name: 'poster_path')  String posterPath, @JsonKey(name: 'backdrop_path')  String? backdropPath,  String overview, @JsonKey(name: 'release_date')  String releaseDate, @JsonKey(name: 'vote_average')  double voteAverage, @JsonKey(name: 'vote_count')  int voteCount)  $default,) {final _that = this;
 switch (_that) {
 case _Movie():
 return $default(_that.id,_that.adult,_that.originalTitle,_that.originalLanguage,_that.title,_that.genreIds,_that.posterPath,_that.backdropPath,_that.overview,_that.releaseDate,_that.voteAverage,_that.voteCount);case _:
@@ -205,7 +211,7 @@ return $default(_that.id,_that.adult,_that.originalTitle,_that.originalLanguage,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  bool adult, @JsonKey(name: 'original_title')  String originalTitle, @JsonKey(name: 'original_language')  String originalLanguage,  String title, @JsonKey(name: 'genre_ids')  List<int> genreIds, @JsonKey(name: 'poster_path')  String posterPath, @JsonKey(name: 'backdrop_path')  String backdropPath,  String overview, @JsonKey(name: 'release_date')  String releaseDate, @JsonKey(name: 'vote_average')  double voteAverage, @JsonKey(name: 'vote_count')  int voteCount)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  bool adult, @JsonKey(name: 'original_title')  String originalTitle, @JsonKey(name: 'original_language')  String originalLanguage,  String title, @JsonKey(name: 'genre_ids')  List<int> genreIds, @JsonKey(name: 'poster_path')  String posterPath, @JsonKey(name: 'backdrop_path')  String? backdropPath,  String overview, @JsonKey(name: 'release_date')  String releaseDate, @JsonKey(name: 'vote_average')  double voteAverage, @JsonKey(name: 'vote_count')  int voteCount)?  $default,) {final _that = this;
 switch (_that) {
 case _Movie() when $default != null:
 return $default(_that.id,_that.adult,_that.originalTitle,_that.originalLanguage,_that.title,_that.genreIds,_that.posterPath,_that.backdropPath,_that.overview,_that.releaseDate,_that.voteAverage,_that.voteCount);case _:
@@ -219,7 +225,7 @@ return $default(_that.id,_that.adult,_that.originalTitle,_that.originalLanguage,
 /// @nodoc
 @JsonSerializable()
 
-class _Movie implements Movie {
+class _Movie with DiagnosticableTreeMixin implements Movie {
   const _Movie({required this.id, required this.adult, @JsonKey(name: 'original_title') required this.originalTitle, @JsonKey(name: 'original_language') required this.originalLanguage, required this.title, @JsonKey(name: 'genre_ids') required final  List<int> genreIds, @JsonKey(name: 'poster_path') required this.posterPath, @JsonKey(name: 'backdrop_path') required this.backdropPath, required this.overview, @JsonKey(name: 'release_date') required this.releaseDate, @JsonKey(name: 'vote_average') required this.voteAverage, @JsonKey(name: 'vote_count') required this.voteCount}): _genreIds = genreIds;
   factory _Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
@@ -236,7 +242,7 @@ class _Movie implements Movie {
 }
 
 @override@JsonKey(name: 'poster_path') final  String posterPath;
-@override@JsonKey(name: 'backdrop_path') final  String backdropPath;
+@override@JsonKey(name: 'backdrop_path') final  String? backdropPath;
 @override final  String overview;
 @override@JsonKey(name: 'release_date') final  String releaseDate;
 @override@JsonKey(name: 'vote_average') final  double voteAverage;
@@ -252,6 +258,12 @@ _$MovieCopyWith<_Movie> get copyWith => __$MovieCopyWithImpl<_Movie>(this, _$ide
 Map<String, dynamic> toJson() {
   return _$MovieToJson(this, );
 }
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'Movie'))
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('adult', adult))..add(DiagnosticsProperty('originalTitle', originalTitle))..add(DiagnosticsProperty('originalLanguage', originalLanguage))..add(DiagnosticsProperty('title', title))..add(DiagnosticsProperty('genreIds', genreIds))..add(DiagnosticsProperty('posterPath', posterPath))..add(DiagnosticsProperty('backdropPath', backdropPath))..add(DiagnosticsProperty('overview', overview))..add(DiagnosticsProperty('releaseDate', releaseDate))..add(DiagnosticsProperty('voteAverage', voteAverage))..add(DiagnosticsProperty('voteCount', voteCount));
+}
 
 @override
 bool operator ==(Object other) {
@@ -263,7 +275,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,id,adult,originalTitle,originalLanguage,title,const DeepCollectionEquality().hash(_genreIds),posterPath,backdropPath,overview,releaseDate,voteAverage,voteCount);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'Movie(id: $id, adult: $adult, originalTitle: $originalTitle, originalLanguage: $originalLanguage, title: $title, genreIds: $genreIds, posterPath: $posterPath, backdropPath: $backdropPath, overview: $overview, releaseDate: $releaseDate, voteAverage: $voteAverage, voteCount: $voteCount)';
 }
 
@@ -275,7 +287,7 @@ abstract mixin class _$MovieCopyWith<$Res> implements $MovieCopyWith<$Res> {
   factory _$MovieCopyWith(_Movie value, $Res Function(_Movie) _then) = __$MovieCopyWithImpl;
 @override @useResult
 $Res call({
- int id, bool adult,@JsonKey(name: 'original_title') String originalTitle,@JsonKey(name: 'original_language') String originalLanguage, String title,@JsonKey(name: 'genre_ids') List<int> genreIds,@JsonKey(name: 'poster_path') String posterPath,@JsonKey(name: 'backdrop_path') String backdropPath, String overview,@JsonKey(name: 'release_date') String releaseDate,@JsonKey(name: 'vote_average') double voteAverage,@JsonKey(name: 'vote_count') int voteCount
+ int id, bool adult,@JsonKey(name: 'original_title') String originalTitle,@JsonKey(name: 'original_language') String originalLanguage, String title,@JsonKey(name: 'genre_ids') List<int> genreIds,@JsonKey(name: 'poster_path') String posterPath,@JsonKey(name: 'backdrop_path') String? backdropPath, String overview,@JsonKey(name: 'release_date') String releaseDate,@JsonKey(name: 'vote_average') double voteAverage,@JsonKey(name: 'vote_count') int voteCount
 });
 
 
@@ -292,7 +304,7 @@ class __$MovieCopyWithImpl<$Res>
 
 /// Create a copy of Movie
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? adult = null,Object? originalTitle = null,Object? originalLanguage = null,Object? title = null,Object? genreIds = null,Object? posterPath = null,Object? backdropPath = null,Object? overview = null,Object? releaseDate = null,Object? voteAverage = null,Object? voteCount = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? adult = null,Object? originalTitle = null,Object? originalLanguage = null,Object? title = null,Object? genreIds = null,Object? posterPath = null,Object? backdropPath = freezed,Object? overview = null,Object? releaseDate = null,Object? voteAverage = null,Object? voteCount = null,}) {
   return _then(_Movie(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,adult: null == adult ? _self.adult : adult // ignore: cast_nullable_to_non_nullable
@@ -301,8 +313,8 @@ as String,originalLanguage: null == originalLanguage ? _self.originalLanguage : 
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,genreIds: null == genreIds ? _self._genreIds : genreIds // ignore: cast_nullable_to_non_nullable
 as List<int>,posterPath: null == posterPath ? _self.posterPath : posterPath // ignore: cast_nullable_to_non_nullable
-as String,backdropPath: null == backdropPath ? _self.backdropPath : backdropPath // ignore: cast_nullable_to_non_nullable
-as String,overview: null == overview ? _self.overview : overview // ignore: cast_nullable_to_non_nullable
+as String,backdropPath: freezed == backdropPath ? _self.backdropPath : backdropPath // ignore: cast_nullable_to_non_nullable
+as String?,overview: null == overview ? _self.overview : overview // ignore: cast_nullable_to_non_nullable
 as String,releaseDate: null == releaseDate ? _self.releaseDate : releaseDate // ignore: cast_nullable_to_non_nullable
 as String,voteAverage: null == voteAverage ? _self.voteAverage : voteAverage // ignore: cast_nullable_to_non_nullable
 as double,voteCount: null == voteCount ? _self.voteCount : voteCount // ignore: cast_nullable_to_non_nullable
