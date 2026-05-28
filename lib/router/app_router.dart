@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_tool/page/home/home_page.dart';
 import 'package:movie_tool/router/app_path.dart';
 
+import '../page/movie/movie_details_page.dart';
+
 part 'app_router.g.dart';
 
 @TypedGoRoute<HomeRoute>(path: AppPath.home)
@@ -29,6 +31,14 @@ class AppRouter {
       GoRoute(
         path: AppPath.home,
         builder: (context, state) => const HomePage(),
+      ),
+      GoRoute(
+        path: AppPath.movieDetails,
+        builder: (context, state) {
+          final id = state.path;
+          final extra = state.extra;
+          return const MovieDetailsPage();
+        },
       ),
     ],
   );
