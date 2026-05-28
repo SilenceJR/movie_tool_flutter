@@ -67,6 +67,8 @@ dependencies:
 
   tmdb_api: ^2.2.3
 
+  cached_network_image: ^3.4.1
+
 
 
 dev_dependencies:

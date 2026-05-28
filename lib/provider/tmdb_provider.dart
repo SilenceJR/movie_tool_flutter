@@ -41,30 +41,27 @@ class PopularNotifier extends _$PopularNotifier {
   List<Movie> movies = [];
 
   @override
-  Future<List<Movie>> build() async => movies;
-
-  Future<void> getData({
+  Future<List<Movie>> build({
     String language = 'zh-CN',
-    int page = 1,
     String? region,
-  }) async {
-    final res = await _api.v3.movies.getPopular(
-      language: language,
-      page: page,
-      region: region,
-    );
-    final results = res['results'] as List;
-    final value = results.map((e) => Movie.fromJson(e)).toList();
-    // if (page == 1) {
-    //   movies = value;
-    // } else {
-    //   movies.addAll(value);
-    // }
-    // state = AsyncValue.data(movies);
-    if (page == 1) {
-      state = AsyncValue.data(value);
-    } else {
-      state = AsyncValue.data([...state.value ?? [], ...value]);
+  }) async => movies;
+
+  Future<void> getData({String? language, int page = 1, String? region}) async {
+    try {
+      final res = await _api.v3.movies.getPopular(
+        language: language ?? this.language,
+        page: page,
+        region: region ?? this.region,
+      );
+      final results = res['results'] as List;
+      final value = results.map((e) => Movie.fromJson(e)).toList();
+      if (page == 1) {
+        state = AsyncValue.data(value);
+      } else {
+        state = AsyncValue.data([...state.value ?? [], ...value]);
+      }
+    } on Exception catch (e) {
+      state = AsyncValue.error(e, StackTrace.current);
     }
   }
 }

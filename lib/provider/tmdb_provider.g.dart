@@ -46,33 +46,82 @@ Map<String, dynamic> _$MovieToJson(_Movie instance) => <String, dynamic>{
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(PopularNotifier)
-final popularProvider = PopularNotifierProvider._();
+final popularProvider = PopularNotifierFamily._();
 
 final class PopularNotifierProvider
     extends $AsyncNotifierProvider<PopularNotifier, List<Movie>> {
-  PopularNotifierProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'popularProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  PopularNotifierProvider._({
+    required PopularNotifierFamily super.from,
+    required ({String language, String? region}) super.argument,
+  }) : super(
+         retry: null,
+         name: r'popularProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$popularNotifierHash();
 
+  @override
+  String toString() {
+    return r'popularProvider'
+        ''
+        '$argument';
+  }
+
   @$internal
   @override
   PopularNotifier create() => PopularNotifier();
+
+  @override
+  bool operator ==(Object other) {
+    return other is PopularNotifierProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
-String _$popularNotifierHash() => r'71e7689d0edf024bbb53ab889d67982e371a03ba';
+String _$popularNotifierHash() => r'03ba2035811ab721f2b23a5bd232a1348de061ff';
+
+final class PopularNotifierFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          PopularNotifier,
+          AsyncValue<List<Movie>>,
+          List<Movie>,
+          FutureOr<List<Movie>>,
+          ({String language, String? region})
+        > {
+  PopularNotifierFamily._()
+    : super(
+        retry: null,
+        name: r'popularProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  PopularNotifierProvider call({String language = 'zh-CN', String? region}) =>
+      PopularNotifierProvider._(
+        argument: (language: language, region: region),
+        from: this,
+      );
+
+  @override
+  String toString() => r'popularProvider';
+}
 
 abstract class _$PopularNotifier extends $AsyncNotifier<List<Movie>> {
-  FutureOr<List<Movie>> build();
+  late final _$args = ref.$arg as ({String language, String? region});
+  String get language => _$args.language;
+  String? get region => _$args.region;
+
+  FutureOr<List<Movie>> build({String language = 'zh-CN', String? region});
   @$mustCallSuper
   @override
   void runBuild() {
@@ -85,6 +134,9 @@ abstract class _$PopularNotifier extends $AsyncNotifier<List<Movie>> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    element.handleCreate(
+      ref,
+      () => build(language: _$args.language, region: _$args.region),
+    );
   }
 }
