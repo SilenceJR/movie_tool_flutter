@@ -5,6 +5,7 @@ import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_tool/provider/tmdb_provider.dart';
+import 'package:movie_tool/router/app_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -105,30 +106,42 @@ class MovieItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      elevation: 0,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: CachedNetworkImage(
-              imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.5),
+    return GestureDetector(
+      onTap: () => MovieDetailsRoute(movie: movie).push(context),
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 0,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Hero(
+                tag: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                createRectTween:  (begin, end) => MaterialRectArcTween(begin: begin, end: end),
+                // placeholderBuilder: (context, size, child) => ClipRRect(
+                //   borderRadius: BorderRadius.circular(size.height),
+                //   child: child,
+                // ),
+                child: CachedNetworkImage(
+                  imageUrl:
+                      'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                  fit: BoxFit.cover,
+                ),
               ),
-              child: Text(movie.title, style: TextStyle(color: Colors.white)),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.5),
+                ),
+                child: Text(movie.title, style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
